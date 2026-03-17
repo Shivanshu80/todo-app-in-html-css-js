@@ -1,7 +1,7 @@
 const todoInput = document.querySelector('#todoInput');
 const todoAddBtn = document.querySelector('#todoAddBtn');
 const todoPrint = document.querySelector('#todoPrintPart2');
-const deleteTodo = document.querySelector('#deleteTodo');
+
 // selected elements
 
 let inputVal = null
@@ -28,12 +28,23 @@ function todoAdd() {
 }
 // addTodo function
 
+let completeTodo = false
+
+function completeTask() {
+    if (completeTodo == false) {
+        completeTodo = true
+    } else {
+        completeTodo = false
+    }
+    renderTodos();
+}
+
 function renderTodos() {
     todoPrint.innerHTML = "";
     allTodo.forEach((v, i) => {
         todoPrint.innerHTML += `<li>
         <span>${i + 1}</span>
-        ${v}
+       <p ${completeTodo ? 'style=background:red' : ''} onclick=completeTask()> ${v} <p/>
         <span onclick=removeTodo(${i})>x</span>
         </li>
         <br/>`;
