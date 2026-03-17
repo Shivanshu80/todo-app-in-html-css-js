@@ -2,63 +2,58 @@ const todoInput = document.querySelector('#todoInput');
 const todoAddBtn = document.querySelector('#todoAddBtn');
 const todoPrint = document.querySelector('#todoPrintPart2');
 
-// selected elements
-
-let inputVal = null
-let allTodo = []
-// global variables
-
-function inputTarget(event) {
-    inputVal = event.target.value
-}
-// input functionalty function
+let allTodo = [];
 
 function todoAdd() {
-    if (allTodo.includes(inputVal)) {
-        alert('todo already exists')
-        return
+    const value = todoInput.value.trim();
+
+    if (!value) {
+        alert('Enter todo');
+        return;
     }
-    if (inputVal == null) {
-        alert('enter todo');
-        return
+
+    if (allTodo.find(todo => todo.text === value)) {
+        alert('Todo already exists');
+        return;
     }
-    allTodo.push(inputVal);
+
+    allTodo.push({ text: value, completed: false });
+    todoInput.value = "";
     renderTodos();
-
 }
-// addTodo function
 
-let completeTodo = false
+function completeTask(id) {
+    allTodo[id].completed = !allTodo[id].completed;
+    renderTodos();
+}
 
-function completeTask() {
-    if (completeTodo == false) {
-        completeTodo = true
-    } else {
-        completeTodo = false
-    }
+function removeTodo(id) {
+    allTodo = allTodo.filter((_, i) => i !== id);
     renderTodos();
 }
 
 function renderTodos() {
     todoPrint.innerHTML = "";
-    allTodo.forEach((v, i) => {
-        todoPrint.innerHTML += `<li>
-        <span>${i + 1}</span>
-       <p ${completeTodo ? 'style=background:red' : ''} onclick=completeTask()> ${v} <p/>
-        <span onclick=removeTodo(${i})>x</span>
-        </li>
-        <br/>`;
+
+    allTodo.forEach((todo, i) => {
+        const li = document.createElement('li');
+
+        li.innerHTML = `
+            <span>${i + 1}</span>
+            <p style="${todo.completed ? 'background:red;' : ''}">
+                ${todo.text}
+            </p>
+            <span style="cursor:pointer;">x</span>
+        `;
+
+        // Add events
+        li.querySelector('p').addEventListener('click', () => completeTask(i));
+        li.querySelector('span:last-child').addEventListener('click', () => removeTodo(i));
+
+        todoPrint.appendChild(li);
     });
 }
-// printTodo function
 
-function removeTodo(id) {
-    allTodo = allTodo.filter((v, i) => i !== id);
-    renderTodos();
-}
-renderTodos()
-// delete todo function
-
-
-todoInput.addEventListener('input', inputTarget);
 todoAddBtn.addEventListener('click', todoAdd);
+
+renderTodos();
