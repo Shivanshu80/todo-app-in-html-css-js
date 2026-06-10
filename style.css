@@ -1,81 +1,40 @@
-/* Reset default browser styles */
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Center the whole page */
-body {
-    background: #f4f6f8;
-    height: 100vh;
+html, body{
+    height: 100%;
+    width: 100%;
+}
+
+body{
     display: flex;
     justify-content: center;
-    /* align-items:center; */
-    background-color: rgb(9, 45, 79);
-}
-
-/* Main container */
-.container {
-    background: white;
-    width: 350px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    height: 400px;
-    overflow-y: scroll;
-}
-
-/* Input + button section */
-#TodofunctionalityPart {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-/* Input field */
-#TodofunctionalityPart input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-}
-
-/* Button style */
-#TodofunctionalityPart button {
-    padding: 10px 15px;
-    border: none;
-    background: #4CAF50;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#TodofunctionalityPart button:hover {
-    background: #45a049;
-}
-
-/* Todo list */
-#todoPrintPart2 li {
-    background: #f1f1f1;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
-/* Delete button */
-#todoPrintPart2 span {
-    color: red;
-    cursor: pointer;
-    font-weight: bold;
+ul{
+    list-style: none;
 }
 
-#todoPrintPart2 span:hover {
-    color: darkred;
+.container{
+    border: 1px solid black;
+    padding: 13;
+    border-radius: 5px;
+    background-color: lightcyan;
 }
+
+ul li{
+    display: flex;
+    justify-content: space-around;
+    padding: 2px;
+    background-color: lightcoral;
+    margin: 5px;
+}
+
+span{
+    padding: 0px 10px;
+}
+

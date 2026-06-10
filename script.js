@@ -1,59 +1,45 @@
-const todoInput = document.querySelector('#todoInput');
-const todoAddBtn = document.querySelector('#todoAddBtn');
-const todoPrint = document.querySelector('#todoPrintPart2');
+const writeTodo = document.querySelector('#writeTodo');
+const addTodo = document.querySelector('#addTodo');
+const showTodo = document.querySelector('#showTodo');
 
-let allTodo = [];
+let todoVal = ''
+let todoList = []
 
-function todoAdd() {
-    const value = todoInput.value.trim();
+const inputVl = () => {
+    todoVal = writeTodo.value
+}
 
-    if (!value) {
-        alert('Enter todo');
-        return;
+const addTodList = () => {
+    if(writeTodo.value == ''){
+        alert('Please enter todo')
+        return
     }
-
-    if (allTodo.find(todo => todo.text === value)) {
-        alert('Todo already exists');
-        return;
+    if (todoList.includes(todoVal)) {
+        alert('Todo all ready exists')
+        return
     }
-
-    allTodo.push({ text: value, completed: false });
-    todoInput.value = "";
-    renderTodos();
+    todoList.push(todoVal)
 }
 
-function completeTask(id) {
-    allTodo[id].completed = !allTodo[id].completed;
-    renderTodos();
+const renderTodo = () => {
+    let finalTodo = todoList.map((v, i) => {
+        let li = ''
+        return li += `<li> <span>${i + 1}</span> <p>${v}</p> <span onClick=removeTodo(${i})>x</span> </li>`
+    })
+    showTodo.innerHTML = finalTodo
+    writeTodo.value = ''
 }
 
-function removeTodo(id) {
-    allTodo = allTodo.filter((_, i) => i !== id);
-    renderTodos();
+const addTodos = () => {
+    addTodList()
+    renderTodo()
 }
 
-function renderTodos() {
-    todoPrint.innerHTML = "";
-
-    allTodo.forEach((todo, i) => {
-        const li = document.createElement('li');
-
-        li.innerHTML = `
-            <span>${i + 1}</span>
-            <p style="${todo.completed ? 'background:red;' : ''}">
-                ${todo.text}
-            </p>
-            <span style="cursor:pointer;">x</span>
-        `;
-
-        // Add events
-        li.querySelector('p').addEventListener('click', () => completeTask(i));
-        li.querySelector('span:last-child').addEventListener('click', () => removeTodo(i));
-
-        todoPrint.appendChild(li);
-    });
+const removeTodo = (index) => {
+    todoList.splice(index, 1)
+    renderTodo()
+    writeTodo.value = ''
 }
 
-todoAddBtn.addEventListener('click', todoAdd);
-
-renderTodos();
+addTodo.addEventListener('click', addTodos)
+writeTodo.addEventListener('input', inputVl)

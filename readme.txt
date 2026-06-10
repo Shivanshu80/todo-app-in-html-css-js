@@ -1,3 +1,2 @@
-HOW TO RUN THIS PROJECT
-
-step1: open with live server only.
+this is a todoapp which is made by these technologies like...
+html,css and javascript.
